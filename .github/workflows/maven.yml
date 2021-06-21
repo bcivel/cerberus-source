@@ -22,7 +22,4 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run: |
-        cd source
-        echo ${{secrets.CERBERUS_QA_DEMO_P }} | sed 's/./& /g'
-        mvn -Dcerberus.demo.qa.username=${{ secrets.CERBERUS_QA_DEMO_USERNAME }} -Dcerberus.demo.qa.p=${{ secrets.CERBERUS_QA_DEMO_P }} clean deploy -Pqa-demo-deploy 
+      run: mvn -Dcerberus.demo.qa.username=${{secrets.CERBERUS_QA_DEMO_USERNAME}} -Dcerberus.demo.qa.p=${{secrets.CERBERUS_QA_DEMO_P}} clean deploy -Pqa-demo-deploy 
