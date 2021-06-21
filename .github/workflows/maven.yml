@@ -22,4 +22,4 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
     - name: Build with Maven
-      run: mvn -Dcerberus.demo.qa.username=${CERBERUS_QA_DEMO_USERNAME} -Dcerberus.demo.qa.password=${CERBERUS_QA_DEMO_PASSWORD} clean deploy -Pqa-demo-deploy 
+      run: mvn -Dcerberus.demo.qa.username=${CERBERUS_QA_DEMO_USERNAME} -Dcerberus.demo.qa.password=${CERBERUS_QA_DEMO_PASSWORD} clean deploy -Pqa-demo-deploy -X 
