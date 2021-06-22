@@ -1,0 +1,33 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Release
+
+on: 
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: 'Release Version'     
+        required: true
+        default: '4.12'
+      nextReleaseVersion:
+        description: 'Next Release Version'     
+        required: true
+        default: '4.13'
+      databaseVersion:
+        description: 'Database Version'     
+        required: true
+        default: '1234'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Invoke workflow with inputs
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: Release_1_prepare
+        token: ${{ secrets.GTB_TOKEN }}
+        inputs: '{ "releaseVersion": "${{ github.event.inputs.releaseVersion }}", "nextReleaseVersion": "${{ github.event.inputs.nextReleaseVersion }}", "databaseVersion": "${{ github.event.inputs.databaseVersion }}" }'
