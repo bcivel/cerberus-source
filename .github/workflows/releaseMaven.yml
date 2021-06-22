@@ -38,8 +38,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GTB_TOKEN }}
-        file: Cerberus-${{ github.event.inputs.releaseVersion }}.zip
-        asset_name: mything
+        file: /home/runner/work/cerberus-source/cerberus-source/target/checkout/source/target/Cerberus-${{ github.event.inputs.releaseVersion }}.zip
+        asset_name: zip
         tag: cerberus-testing-${{ github.event.inputs.releaseVersion }}
         overwrite: true
         body: "Release ${{ github.event.inputs.releaseVersion }}"
@@ -47,8 +47,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GTB_TOKEN }}
-        file: Cerberus-${{ github.event.inputs.releaseVersion }}.war
-        asset_name: mything
+        file: /home/runner/work/cerberus-source/cerberus-source/target/checkout/source/target/Cerberus-${{ github.event.inputs.releaseVersion }}.war
+        asset_name: war
         tag: cerberus-testing-${{ github.event.inputs.releaseVersion }}
         overwrite: true
         body: "Release ${{ github.event.inputs.releaseVersion }}"
