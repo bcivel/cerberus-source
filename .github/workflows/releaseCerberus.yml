@@ -38,7 +38,7 @@ jobs:
     - name: push
       uses: github-actions-x/commit@v2.8
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GTB_TOKEN }}
         push-branch: 'master'
         commit-message: 'publish'
         force-add: 'true'
