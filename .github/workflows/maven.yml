@@ -25,4 +25,4 @@ jobs:
       run: |
         cd source
         echo "$(ls)"
-        mvn -Dcerberus.demo.qa.username=${{secrets.CERBERUS_QA_DEMO_USERNAME}} -Dcerberus.demo.qa.password=${{secrets.CERBERUS_QA_DEMO_P}} clean deploy -Pqa-demo-deploy --file ./source/pom.xml 
+        mvn -Dcerberus.demo.qa.username=${{secrets.CERBERUS_QA_DEMO_USERNAME}} -Dcerberus.demo.qa.password=${{secrets.CERBERUS_QA_DEMO_P}} clean deploy -Pqa-demo-deploy --file pom.xml 
