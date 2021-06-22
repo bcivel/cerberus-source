@@ -30,17 +30,10 @@ jobs:
       run: | 
         git config --global user.email "bcivel@free.fr"
         git config --global user.name "Benoit CIVEL"
-        mvn release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
+        mvn release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
         mvn release:perform
-    - name: Push on Master
-      uses: github-actions-x/commit@v2.8
-      with:
-        github-token: ${{ secrets.GTB_TOKEN }}
-        push-branch: 'master'
-        commit-message: 'chore:release ${{ github.event.inputs.releaseVersion }} version'
-        force-add: 'true'
-        name: Benoit CIVEL
-        email: bcivel@free.fr 
+        echo "$(ls)"
+
         
 #git add source/src/main/webapp/DatabaseMaintenance.jsp
 #git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
