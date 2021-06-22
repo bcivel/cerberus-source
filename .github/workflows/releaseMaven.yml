@@ -32,7 +32,7 @@ jobs:
         git config --global user.name "Benoit CIVEL"
         mvn release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
         mvn release:perform
-        cd target
+        cd /home/runner/work/cerberus-source/cerberus-source/target/checkout/source/target/
         echo "$(ls)"
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
