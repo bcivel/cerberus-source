@@ -1,0 +1,45 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Release Cerberus
+
+on: 
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: 'Release Version'     
+        required: true
+        default: '1'
+    inputs:
+      nextReleaseVersion:
+        description: 'Next Release Version'     
+        required: true
+        default: '1'
+    inputs:
+      databaseVersion:
+        description: 'Database Version'     
+        required: true
+        default: '1'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    - name: Build with Maven
+      run: |
+        awk -v '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL.",$0); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
+        mv source/src/main/webapp/DatabaseMaintenance.jsp.back source/src/main/webapp/DatabaseMaintenance.jsp
+        git add source/src/main/webapp/DatabaseMaintenance.jsp
+        git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
+        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
+        mvn release:perform
+        git push origin master
+
