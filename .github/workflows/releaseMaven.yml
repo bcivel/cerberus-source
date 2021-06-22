@@ -39,7 +39,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GTB_TOKEN }}
       with:
         releaseId: cerberus-testing-${{ github.event.inputs.releaseVersion }}
-        args: '*.zip'
+        args: 'target/*.zip'
 
         
 #git add source/src/main/webapp/DatabaseMaintenance.jsp
