@@ -35,14 +35,19 @@ jobs:
       run: |
         awk '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL.", $0); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
         mv source/src/main/webapp/DatabaseMaintenance.jsp.back source/src/main/webapp/DatabaseMaintenance.jsp
+        git add source/src/main/webapp/DatabaseMaintenance.jsp
+    - name: Build with Maven
+      run: |   
+        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
+        mvn release:perform
     - name: push
       uses: github-actions-x/commit@v2.8
       with:
         github-token: ${{ secrets.GTB_TOKEN }}
         push-branch: 'master'
-        commit-message: 'publish'
+        commit-message: 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
         force-add: 'true'
-        files: source/src/main/webapp/DatabaseMaintenance.jsp
+#files: source/src/main/webapp/DatabaseMaintenance.jsp
         name: Benoit CIVEL
         email: bcivel@free.fr 
         
