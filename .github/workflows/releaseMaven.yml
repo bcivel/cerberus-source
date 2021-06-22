@@ -1,0 +1,49 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Release Cerberus
+
+on: 
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: 'Release Version'     
+        required: true
+        default: '4.12'
+      nextReleaseVersion:
+        description: 'Next Release Version'     
+        required: true
+        default: '4.13'
+      databaseVersion:
+        description: 'Database Version'     
+        required: true
+        default: '1234'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Release Maven
+      run: | 
+        git config --global user.email "bcivel@free.fr"
+        git config --global user.name "Benoit CIVEL"
+        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
+        mvn release:perform
+    - name: Push on Master
+      uses: github-actions-x/commit@v2.8
+      with:
+        github-token: ${{ secrets.GTB_TOKEN }}
+        push-branch: 'master'
+        commit-message: 'chore:release ${{ github.event.inputs.releaseVersion }} version'
+        force-add: 'true'
+        name: Benoit CIVEL
+        email: bcivel@free.fr 
+        
+#git add source/src/main/webapp/DatabaseMaintenance.jsp
+#git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
+#mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
+#       mvn release:perform
+#git push origin master
