@@ -35,9 +35,20 @@ jobs:
       run: |
         awk '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL.", $0); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
         mv source/src/main/webapp/DatabaseMaintenance.jsp.back source/src/main/webapp/DatabaseMaintenance.jsp
-        git add source/src/main/webapp/DatabaseMaintenance.jsp
-        git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
-        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
-        mvn release:perform
-        git push origin master
+    - name: push
+      uses: github-actions-x/commit@v2.8
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        push-branch: 'master'
+        commit-message: 'publish'
+        force-add: 'true'
+        files: source/src/main/webapp/DatabaseMaintenance.jsp
+        name: Benoit CIVEL
+        email: bcivel@free.fr 
+        
+#git add source/src/main/webapp/DatabaseMaintenance.jsp
+#git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
+#mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${{ github.event.inputs.releaseVersion }} -DreleaseVersion=${{ github.event.inputs.releaseVersion }} -DdevelopmentVersion=${{ github.event.inputs.nextReleaseVersion }}
+#       mvn release:perform
+#git push origin master
 
