@@ -37,7 +37,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/bcivel/cerberus-source.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>cerberus-testing-4.12</tag>
     </scm>
 
     <modules>
