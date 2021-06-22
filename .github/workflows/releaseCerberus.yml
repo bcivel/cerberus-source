@@ -47,7 +47,9 @@ jobs:
         email: bcivel@free.fr 
     - uses: actions/checkout@v2
     - name: Release Maven
-      run: |   
+      run: | 
+        git config --global user.email "bcivel@free.fr"
+        git config --global user.name "Benoit CIVEL"
         mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
         mvn release:perform
     - name: Push on Master
