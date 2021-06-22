@@ -29,7 +29,9 @@ jobs:
         mvn clean install --file pom.xml
     - name: Build docker
       run: |
+        echo "$(ls)"
         cd ../docker/images/cerberus-as-tomcat/${{ github.event.inputs.cerberusVersion }}
+        echo "$(ls)"
         docker build -t bcivel/cerberus-as-tomcat:${{ github.event.inputs.cerberusVersion }} .
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
