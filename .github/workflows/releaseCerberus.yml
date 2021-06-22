@@ -10,12 +10,10 @@ on:
         description: 'Release Version'     
         required: true
         default: '1'
-    inputs:
       nextReleaseVersion:
         description: 'Next Release Version'     
         required: true
         default: '1'
-    inputs:
       databaseVersion:
         description: 'Database Version'     
         required: true
