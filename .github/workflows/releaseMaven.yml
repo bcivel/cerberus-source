@@ -39,7 +39,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GTB_TOKEN }}
         file: /home/runner/work/cerberus-source/cerberus-source/target/checkout/source/target/Cerberus-${{ github.event.inputs.releaseVersion }}.zip
-        asset_name: zip
+        asset_name: Cerberus-${{ github.event.inputs.releaseVersion }}.zip
         tag: cerberus-testing-${{ github.event.inputs.releaseVersion }}
         overwrite: true
         body: "Release ${{ github.event.inputs.releaseVersion }}"
@@ -48,7 +48,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GTB_TOKEN }}
         file: /home/runner/work/cerberus-source/cerberus-source/target/checkout/source/target/Cerberus-${{ github.event.inputs.releaseVersion }}.war
-        asset_name: war
+        asset_name: Cerberus-${{ github.event.inputs.releaseVersion }}.war
         tag: cerberus-testing-${{ github.event.inputs.releaseVersion }}
         overwrite: true
         body: "Release ${{ github.event.inputs.releaseVersion }}"
