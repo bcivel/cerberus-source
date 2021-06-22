@@ -36,7 +36,7 @@
     </properties>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/cerberustesting/cerberus-source.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/bcivel/cerberus-source.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
