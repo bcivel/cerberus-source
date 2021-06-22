@@ -738,7 +738,7 @@
                                                 3. Restarting current cluster.
                                         -->
                                         <echo message="Deploying..." />
-                                        <sshexec host="${cerberus.demo.host}" username="${cerberus.demo.qa.username}" password="${cerberus.demo.qa.p}" trust="yes" command="unzip -o ${cerberus.demo.upload.path}/${project.build.finalName}.zip -d ${cerberus.demo.upload.path} &amp;&amp; ( ${cerberus.demo.tomcat.deploy} ${cerberus.demo.upload.path}/${project.build.finalName}/${project.build.finalName}.war )" />
+                                        <sshexec host="${cerberus.demo.host}" username="${cerberus.demo.qa.username}" password="${cerberus.demo.qa.password}" trust="yes" command="unzip -o ${cerberus.demo.upload.path}/${project.build.finalName}.zip -d ${cerberus.demo.upload.path} &amp;&amp; ( ${cerberus.demo.tomcat.deploy} ${cerberus.demo.upload.path}/${project.build.finalName}/${project.build.finalName}.war )" />
                                     </target>
                                 </configuration>
                             </execution>
