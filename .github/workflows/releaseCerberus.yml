@@ -33,7 +33,7 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: |
-        awk -v '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL."); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
+        awk '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL.", $0); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
         mv source/src/main/webapp/DatabaseMaintenance.jsp.back source/src/main/webapp/DatabaseMaintenance.jsp
         git add source/src/main/webapp/DatabaseMaintenance.jsp
         git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
