@@ -3,10 +3,10 @@
 Easy to use test automation platform.
 
 <a href="https://github.com/bcivel/cerberus-source/actions/workflows/maven.yml?query=workflow%3A%22Deploy+%26+QA%22">
-    <img alt="build and test status" src="https://github.com/bcivel/cerberus-source/actions/workflows/build_test.yml/badge.svg">
+    <img alt="build and test status" src="https://github.com/bcivel/cerberus-source/actions/workflows/maven.yml/badge.svg">
 </a>
 
-[![Build Status](https://github.com/bcivel/cerberus-source/actions/workflows/build_test.yml/badge.svg)](https://github.com/bcivel/cerberus-source/actions/workflows/maven.yml?query=workflow%3A%22Deploy+%26+QA%22)
+[![Build Status](https://github.com/bcivel/cerberus-source/actions/workflows/maven.yml/badge.svg)](https://github.com/bcivel/cerberus-source/actions/workflows/maven.yml?query=workflow%3A%22Deploy+%26+QA%22)
 [![Build Status](https://travis-ci.org/cerberustesting/cerberus-source.svg?branch=master)](//travis-ci.org/cerberustesting/cerberus-source)
 [![Test Status](https://prod.cerberus-testing.com/ResultCIV003?campaign=Cerberus_campaign&outputformat=svg&t=180131)](https://prod.cerberus-testing.com/)
 
