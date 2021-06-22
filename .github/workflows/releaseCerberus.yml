@@ -9,15 +9,15 @@ on:
       releaseVersion:
         description: 'Release Version'     
         required: true
-        default: '1'
+        default: '4.12'
       nextReleaseVersion:
         description: 'Next Release Version'     
         required: true
-        default: '1'
+        default: '4.13'
       databaseVersion:
         description: 'Database Version'     
         required: true
-        default: '1'
+        default: '1234'
 
 jobs:
   build:
@@ -31,24 +31,32 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Build with Maven
+    - name: Update Database Maintenance
       run: |
         awk '{gsub(/Integer SQLLimit = (.*)/,"Integer SQLLimit = ${{ github.event.inputs.databaseVersion }}; // ${{ github.event.inputs.releaseVersion }} Version LEVEL.", $0); print }' source/src/main/webapp/DatabaseMaintenance.jsp > source/src/main/webapp/DatabaseMaintenance.jsp.back
         mv source/src/main/webapp/DatabaseMaintenance.jsp.back source/src/main/webapp/DatabaseMaintenance.jsp
-        git add source/src/main/webapp/DatabaseMaintenance.jsp
-        git commit -m 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
-    - name: Build with Maven
-      run: |   
-        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
-        mvn release:perform
-    - name: push
+    - name: Push on Master
       uses: github-actions-x/commit@v2.8
       with:
         github-token: ${{ secrets.GTB_TOKEN }}
         push-branch: 'master'
-        commit-message: 'release ${{ github.event.inputs.releaseVersion }} version'
+        commit-message: 'chore:source prepare the new ${{ github.event.inputs.releaseVersion }} version and update database version to ${{ github.event.inputs.databaseVersion }}'
         force-add: 'true'
-#files: source/src/main/webapp/DatabaseMaintenance.jsp
+        files: source/src/main/webapp/DatabaseMaintenance.jsp
+        name: Benoit CIVEL
+        email: bcivel@free.fr 
+    - uses: actions/checkout@v2
+    - name: Release Maven
+      run: |   
+        mvn --batch-mode -Prelease release:prepare -Dtag=cerberus-testing-${RELEASE_VERSION} -DreleaseVersion=${RELEASE_VERSION} -DdevelopmentVersion=${NEXT_DEVELOPMENT_VERSION}
+        mvn release:perform
+    - name: Push on Master
+      uses: github-actions-x/commit@v2.8
+      with:
+        github-token: ${{ secrets.GTB_TOKEN }}
+        push-branch: 'master'
+        commit-message: 'chore:release ${{ github.event.inputs.releaseVersion }} version'
+        force-add: 'true'
         name: Benoit CIVEL
         email: bcivel@free.fr 
         
