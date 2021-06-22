@@ -23,14 +23,10 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Build with Maven
-      run: |
-        cd source
-        mvn clean install --file pom.xml
     - name: Build docker
       run: |
         echo "$(ls)"
-        cd ../docker/images/cerberus-as-tomcat/${{ github.event.inputs.cerberusVersion }}
+        cd docker/images/cerberus-as-tomcat/${{ github.event.inputs.cerberusVersion }}
         echo "$(ls)"
         docker build -t bcivel/cerberus-as-tomcat:${{ github.event.inputs.cerberusVersion }} .
     - name: Log in to Docker Hub
