@@ -30,7 +30,7 @@ jobs:
 #echo "$(ls)"
 # docker build -t bcivel/cerberus-as-tomcat:${{ github.event.inputs.cerberusVersion }} .
     - name: Publish to Docker Hub
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: bcivel/cerberus-as-tomcat:${{ github.event.inputs.cerberusVersion }}
         username: ${{ secrets.DOCKER_USERNAME }}
